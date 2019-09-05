@@ -22,7 +22,8 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 class GETFEATURES():
-    def readAudios(self,path):    
+    def readAudios(self,path): 
+        print(path)
         samplerate, data = wavfile.read(path)
         return samplerate, data
     
@@ -50,11 +51,12 @@ class GETFEATURES():
                 features[0][cont]=(np.mean(featureRow[j]))
                 features[1][cont]=(np.std(featureRow[j]))
                 cont = cont +1
+        
         return features #fila con el numero carácteristicas con la media y std
     
     def get_features_audios(self,path, num_rows, num_columns):
         sample_rate, data = self.readAudios(path)
         freqs, spectogram = self.log_specgram(data, sample_rate)
         features = self.split_blocks(num_rows, num_columns, spectogram)
-        return features       
+        return features.flatten()        
 
