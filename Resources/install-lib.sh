@@ -1,8 +1,12 @@
-pip3 install numpy
-pip3 install pixiedust
-pip3 install -U matplotlib
-pip3 install -U scikit-learn
-pip3 install pandas
-pip3 install qgrid
+pip install -U matplotlib
+pip install numpy
+pip install pandas
+pip install scipy
+pip install -U scikit-learn
+pip install pixiedust
+pip install qgrid
 jupyter nbextension enable --py --sys-prefix qgrid
-pip3 install mlxtend  
+pip install mlxtend  
+pip install librosa
+pip install ipynb
+pip install seaborn
