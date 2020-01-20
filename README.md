@@ -5,4 +5,7 @@ El archivo which_set(training,testing,validation).ipynb
 
 **Voice_Recognition  P1:** Slides explicando el conjunto de datos, paramétros de una señal de audio, FFT, espectograma.
 
+Link kaggle: http://kaggle.com/mok0na/speech-commands-v002
+
+
 
