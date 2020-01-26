@@ -7,7 +7,9 @@ El archivo which_set(training,testing,validation).ipynb
 
 Link kaggle: http://kaggle.com/mok0na/speech-commands-v002
 
-Link resultados: https://docs.google.com/presentation/d/1v0KqHQtBwZXPuOOjWKGwCq5PrvukPObCU2pcQBKmXnQ/edit?usp=sharing
+### Experimentos realizados con el pipeline 
+
+Link resultados: https://docs.google.com/presentation/d/1QsI5ff1Hx4HRFKK4kGUShWQzJIIp5V4qiswbSehHZU8/edit?usp=sharing
 
 
 
