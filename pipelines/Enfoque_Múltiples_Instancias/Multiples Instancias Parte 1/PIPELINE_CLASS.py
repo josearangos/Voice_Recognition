@@ -198,7 +198,7 @@ class PIPELINE_MULTIPLES_INST:
     """
     """
     
-    def TRAIN_2(self, model,X,Y,tracks,i,folds,groups):
+    def TRAIN_2(self, model,X,Y,tracks,i,folds,groups,label_request=False):
         gss = GroupShuffleSplit(n_splits=folds, train_size=.7)
         EficienciaTrain = np.zeros(folds)
         EficienciaVal = np.zeros(folds)
@@ -217,8 +217,10 @@ class PIPELINE_MULTIPLES_INST:
             tracks_test_fold=tracks[test_idx]
 
             #Entrenamiento
-            model_trained.fit(X_train_fold)
-            
+            if(label_request):
+                model_trained.fit(X_train_fold,Y_train_fold)
+            else:
+                model_trained.fit(X_train_fold)
              #Validación
             Ytrain_pred = self.modelPredict(model_trained,X_train_fold,tracks_train_fold)
 
@@ -287,7 +289,7 @@ class PIPELINE_MULTIPLES_INST:
 #################################################################################################################
 
 #folds, X,Y,groups,tracks
-    def learning_curve(self, model,suptitle='', title='', xlabel='Training Set Size', ylabel='Acurracy'):
+    def learning_curve(self, model,suptitle='', title='', xlabel='Training Set Size', ylabel='Acurracy',label_request=False):
         """
         Parameters
         ----------
@@ -317,7 +319,7 @@ class PIPELINE_MULTIPLES_INST:
         for i in training_set_sizes:  
                     
             
-            model, eficiencia_Train,intervalo_Train,eficiencia_Test,intervalo_Test=self.TRAIN_2(model,self.X,self.Y,self.tracks,i,self.folds,self.groups)
+            model, eficiencia_Train,intervalo_Train,eficiencia_Test,intervalo_Test=self.TRAIN_2(model,self.X,self.Y,self.tracks,i,self.folds,self.groups,label_request)
             
             
             # store the scores in their respective lists
