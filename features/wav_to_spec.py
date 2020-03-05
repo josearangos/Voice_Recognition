@@ -31,6 +31,7 @@ def wav2img(wav_path, targetdir='', figsize=(45,45)):
     samplerate, test_sound  = wavfile.read(wav_path)
     _, spectrogram = log_specgram(test_sound, samplerate)
     
+    print('shape',spectrogram.shape)
     ## create output path
     output_file = wav_path.split('/')[-1].split('.wav')[0]
     output_file = targetdir +'/'+ output_file
