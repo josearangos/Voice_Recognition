@@ -1,18 +1,12 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import librosa
 import matplotlib.pyplot as plt
 import librosa.display
 import matplotlib
 import pylab
 import numpy as np
+from sklearn import preprocessing
+import sklearn as sk
 
-
-# In[10]:
 
 
 def wav2melSpectIm(wav_path, targetdir,n_mels=128):
@@ -28,21 +22,19 @@ def wav2melSpectIm(wav_path, targetdir,n_mels=128):
     pylab.close()   
 
 
-# In[12]:
 
+def wavToMelSpect(wav_path,n_mels=120):
+    name = wav_path.split('/')[-1].split('.')[0]
+    y, sr = librosa.load(wav_path, duration=1.0)
+    whale_song, _ = librosa.effects.trim(y) 
+    spect_norm=sk.preprocessing.minmax_scale(whale_song, axis=0) 
+    spect_norm = pad_audio(spect_norm)   
+    spect = librosa.feature.melspectrogram(y=spect_norm, sr=sr,n_mels=128)        
+    return spect
+ 
 
-#filename = '/home/josearangos/Documentos/Projects/Voice_Recognition/data/zero/0a2b400e_nohash_0.wav'
-#path_out = '/home/josearangos/Documentos/Projects/Voice_Recognition/data/mel-spectrograms'
-
-
-# In[13]:
-
-
-#wav2melSpectIm(filename, path_out,n_mels=128)
-
-
-# In[ ]:
-
-
-
-
+def pad_audio(samples):
+    L = 22050
+    if len(samples) >= L: return samples
+    else: return np.pad(samples, pad_width=(L - len(samples), 0), mode='constant', constant_values=(0, 0))   
+    
