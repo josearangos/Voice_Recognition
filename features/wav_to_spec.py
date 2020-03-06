@@ -4,6 +4,8 @@ from scipy import signal
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from sklearn import preprocessing
+import sklearn as sk
 
 
 def log_specgram(audio, sample_rate, window_size=20,
@@ -38,7 +40,24 @@ def wav2img(wav_path, targetdir='', figsize=(45,45)):
     plt.imsave('%s.jpg' % output_file, spectrogram)
     plt.close()
 
+def wav2spect(wav_path, targetdir='', figsize=(45,45)):
+    """
+    takes in wave file path
+    and the fig size. Default 4,4 will make images 288 x 288
+    """
 
+    # use soundfile library to read in the wave files
+    samplerate, x  = wavfile.read(wav_path)    
+    
+    x_normalize=sk.preprocessing.minmax_scale(x, axis=0) 
+    
+    x = pad_audio(x_normalize)
+    
+    _, spectrogram = log_specgram(x, samplerate)
+    
+    
+    
+    return spectrogram
 
 """
 path_wav : path de los audios
@@ -51,6 +70,10 @@ def wav2spectFolder(path_wav, path_png):
         wav2img(entry,path_png)
     
     
-    
+### rellenará audios de menos de 16000 (1 segundo) con ceros para que todos tengan la misma longitud.
+def pad_audio(samples):
+    L = 16000
+    if len(samples) >= L: return samples
+    else: return np.pad(samples, pad_width=(L - len(samples), 0), mode='constant', constant_values=(0, 0))   
     
 
