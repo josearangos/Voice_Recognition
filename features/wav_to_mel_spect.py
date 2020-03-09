@@ -27,10 +27,10 @@ def wavToMelSpect(wav_path,n_mels=120):
     name = wav_path.split('/')[-1].split('.')[0]
     y, sr = librosa.load(wav_path, duration=1.0)
     whale_song, _ = librosa.effects.trim(y) 
-    spect_norm=sk.preprocessing.minmax_scale(whale_song, axis=0) 
-    spect_norm = pad_audio(spect_norm)   
-    spect = librosa.feature.melspectrogram(y=spect_norm, sr=sr,n_mels=128)        
-    return spect
+    spect = pad_audio(whale_song)      
+    spect = librosa.feature.melspectrogram(y=spect, sr=sr,n_mels=128) 
+    spect_norm=sk.preprocessing.minmax_scale(spect, axis=0) 
+    return spect_norm
  
 
 def pad_audio(samples):
